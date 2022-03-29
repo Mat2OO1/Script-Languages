@@ -1,3 +1,4 @@
-Widzę i opisuję$ bo tęsknię po tobie.
-Nowogródzki ochraniasz z jego wiernym ludem!
-0
+"Year", "Score", "Title"
+1968,  86, "Greetings"
+1970,  17, "Bloody Mama"
+2

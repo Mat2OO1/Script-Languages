@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Process1 {
     public static void main(String[] args) {
         int ignorefirst = 0,ignorelast = 0, lines=0;
-        String delimeter="DEFAULTVALUE123",separator="\t",select = "DEFAULTVALUE123";
-        ArrayList<String> project = new ArrayList<>();
+        String delimeter=",",separator="\t",select = "DEFAULTVALUE123";
+        String[] project = new String[0];
         for(String arg : args) {
             String[] tmp = arg.split("[= ]");
             if (tmp.length >= 2) {
@@ -19,10 +20,7 @@ public class Process1 {
                     else if(tmp[0].equals("--separator"))
                         separator = tmp[1];
                      else if(tmp[0].equals("--project")) {
-                        String[] tmp1 = tmp[1].split("[,]");
-                        for (int i = 0; i < tmp1.length; i++) {
-                            project.add(tmp1[i]);
-                        }
+                        project = tmp[1].split(",");
                     }
                     else if(tmp[0].equals("--select"))
                         select = tmp[1];
@@ -36,36 +34,26 @@ public class Process1 {
         while(sc.hasNextLine()) {
             lines++;
             text.add(sc.nextLine());
+
         }
         for(int i=0; i< text.size(); i++) {
-            String line = text.get(i);
-            if (line.length() < ignorefirst) {
-                ignorefirst -= line.length();
-                text.remove(text.indexOf(line));
+            if (text.get(i).length() < ignorefirst) {
+                text.remove(i);
             } else {
-                text.set(i,text.get(i).substring(ignorefirst, line.length() - 1));
-                break;
+                text.set(i,text.get(i).substring(ignorefirst));
             }
         }
-        for(int i= text.size()-1; i>=0; i--) {
+        for(int i= 0; i< text.size(); i++) {
             if (text.get(i).length() < ignorelast) {
-                ignorelast -= text.get(i).length();
                 text.remove(text.get(i));
             } else {
-                text.set(i, text.get(i).substring(0, text.get(i).length() - 1 - ignorelast));
-                break;
+                text.set(i, text.get(i).substring(0, text.get(i).length() - ignorelast));
                 }
             }
         for(String line : text){
             text.set(text.indexOf(line),line.replaceAll(delimeter,Matcher.quoteReplacement(separator)));
             }
-        if(project.size() >=1){
-            for(int i=0; i< project.size(); i++){
-                System.out.println(text.get(Integer.parseInt(project.get(i))));
-            }
-            System.out.println(0);
-        }
-        else if(select!= "DEFAULTVALUE123"){
+        if(select!= "DEFAULTVALUE123"){
             for(String line : text){
                 if(line.contains(select)){
                     System.out.println(line);
@@ -73,6 +61,20 @@ public class Process1 {
             }
             System.out.println(0);
         }
+        else if(project.length >=1){
+            for(String line : text) {
+                String[] tmp = line.split(separator);
+                if (tmp.length > project.length) {
+                    for (int i = 0; i < project.length; i++) {
+                        System.out.print(tmp[Integer.parseInt(project[i])] + " ");
+                    }
+                    System.out.println();
+                }
+            }
+
+            System.out.println(0);
+        }
+
         else{
             if(text.size() > 0){
                 for(String line : text){
