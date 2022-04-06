@@ -27,13 +27,13 @@ public class Head1 {
             throw new Exception("Zabraklo " + (lines - text.size()) + " linii do wypisania");
         }
         else if(text.size() < lines){
-            System.out.println(0);
+            System.out.println(2);
         }
         else {
             for (int i = 0; i < lines; i++) {
                 System.out.println(text.get(i));
             }
-            System.out.println(2);
+            System.out.println(0);
         }
     }
 }
