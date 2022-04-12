@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Aggregate {
     public static ArrayList<ArrayList<String>> tab = new ArrayList<>();
-
+    public static ArrayList<String> columns = new ArrayList<>();
     public static ArrayList<Integer> getColumn(int index){
         ArrayList<Integer> newArr = new ArrayList<>();
         for(int i=1; i<tab.size();i++){
@@ -85,31 +86,32 @@ public class Aggregate {
                 tab.add(arr);
             }
         }
+        columns = tab.get(0);
     }
     public static void userChoice(String[] args) throws Exception {
         readFile();
         for(String arg:args){
             String[] tmp = arg.split("[\\(||\\)]");
             if(tmp.length>=2){
-                if(tmp[0].equals("min")){
+                if(tmp[0].equals("min") && columns.contains(tmp[1])){
                     System.out.println(min(tmp[1]));
                 }
-                else if(tmp[0].equals("max")){
+                else if(tmp[0].equals("max")&& columns.contains(tmp[1])){
                     System.out.println(max(tmp[1]));
                 }
-                else if(tmp[0].equals("sum")){
+                else if(tmp[0].equals("sum")&& columns.contains(tmp[1])){
                     System.out.println(sum(tmp[1]));
                 }
-                else if(tmp[0].equals("avg")){
+                else if(tmp[0].equals("avg")&& columns.contains(tmp[1])){
                     System.out.println(avg(tmp[1]));
                 }
-                else if(tmp[0].equals("count")){
+                else if(tmp[0].equals("count")&& columns.contains(tmp[1])){
                     System.out.println(count(tmp[1]));
                 }
-                else if(tmp[0].equals("median")){
+                else if(tmp[0].equals("median")&& columns.contains(tmp[1])){
                     System.out.println(median(tmp[1]));
                 }
-                else if(tmp[0].equals("variance")){
+                else if(tmp[0].equals("variance")&& columns.contains(tmp[1])){
                     System.out.println(variance(tmp[1]));
                 }
                 else{
